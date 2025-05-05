@@ -1,3 +1,36 @@
+def adicionar_tarefa(lista):
+    tarefa = input("Inclua a sua tarefa: ").strip().lower()
+    if tarefa == "":
+        print("⚠️ Não pode ser vazio. Digite uma tarefa.")
+    else:
+        lista.append(tarefa)
+        print("✅ Tarefa incluída com sucesso!")
+    return lista  # retorna a lista atualizada
+
+
+def listar_tarefas(lista):
+    if lista:
+        print("\n📋 Suas tarefas:")
+        print("\n".join(f"* {item}" for item in lista))
+    else:
+        print("📭 Sua lista de tarefas está vazia.")
+
+
+def remover_tarefa(lista):
+    if not lista:
+        print("📭 Não há tarefas para remover.")
+    else:
+        remover = input("Digite o nome da tarefa que deseja remover: ").strip().lower()
+        if remover == "":
+            print("⚠️ Não pode ser vazio. Digite uma tarefa.")
+        elif remover in lista:
+            lista.remove(remover)
+            print("🗑️ Tarefa removida com sucesso!")
+        else:
+            print("❌ Tarefa não encontrada na lista.")
+    return lista  # retorna a lista (atualizada ou igual)
+
+
 def gerenciador_tarefas():
     nome = input("Por gentileza, informe o seu nome: ")
 
@@ -18,42 +51,19 @@ Digite a opção que deseja realizar:
 Opção: """)
 
         if opcao == "1":
-            tarefa = input("Inclua a sua tarefa: ").strip().lower()
-            if tarefa == "":
-                print("⚠️ Não pode ser vazio. Digite uma tarefa.")
-            else:
-                lista_tarefas.append(tarefa)
-                print("✅ Tarefa incluída com sucesso!")
-
+            lista_tarefas = adicionar_tarefa(lista_tarefas)
         elif opcao == "2":
-            if lista_tarefas:
-                print("\n📋 Suas tarefas:")
-                print("\n".join(f"* {item}" for item in lista_tarefas))
-            else:
-                print("📭 Sua lista de tarefas está vazia.")
-
+            listar_tarefas(lista_tarefas)
         elif opcao == "3":
-            if not lista_tarefas:
-                print("📭 Não há tarefas para remover.")
-            else:
-                remover_tarefa = input("Digite o nome da tarefa que deseja remover: ").strip().lower()
-                if remover_tarefa == "":
-                    print("⚠️ Não pode ser vazio. Digite uma tarefa.")
-                elif remover_tarefa in lista_tarefas:
-                    lista_tarefas.remove(remover_tarefa)
-                    print("🗑️ Tarefa removida com sucesso!")
-                else:
-                    print("❌ Tarefa não encontrada na lista.")
-
+            lista_tarefas = remover_tarefa(lista_tarefas)
         elif opcao == "4":
             print("Sistema encerrando...")
             break
-
         else:
             print("❌ Digite uma opção válida.")
 
     print(f"\nObrigado, {nome}, por usar o nosso sistema de tarefas! 👋")
 
 
-# Chamada da função principal
+
 gerenciador_tarefas()
